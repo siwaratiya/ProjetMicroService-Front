@@ -1,0 +1,82 @@
+<div class="card">
+  <div class="content-page">
+    <p-toast></p-toast>
+    <p-toolbar styleClass="mb-4 gap-2">
+      <figure class="fir-image-figure">
+
+        <a class="fir-imageover" rel="noopener" target="_blank">
+          <img class="fir-author-image fir-clickcircle" src="./assets/images/stock.jpg" alt="David East - Author">
+          <div class="fir-imageover-color"></div>
+        </a>
+
+        <figcaption>
+          <div class="fig-author-figure-title" style="font-size: 20px">Stock : {{stock.location}}</div>
+          <div class="fig-author-figure-title">Unit {{stock.unit}}</div>
+          <div class="fig-author-figure-title">Free Storage {{stock.free_storage}}</div>
+        </figcaption>
+      </figure>
+    </p-toolbar>
+
+    <p-table
+      #dt
+        [value]="products"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+      [tableStyle]="{ 'min-width': '75rem' , 'font-size':'14px','max-height': '400px', 'overflow-y': 'auto'}"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <h5 class="m-0">Manage Products</h5>
+          <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..."/>
+                </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name_product" style="min-width:15rem">Name
+            <p-sortIcon field="name_product"></p-sortIcon>
+          </th>
+          <th>Image</th>
+          <th pSortableColumn="price">Price
+            <p-sortIcon field="price"></p-sortIcon>
+          </th>
+          <th pSortableColumn="description" style="min-width:10rem">Description
+            <p-sortIcon field="description"></p-sortIcon>
+          </th>
+          <th pSortableColumn="refrence">Reference
+            <p-sortIcon field="refrence"></p-sortIcon>
+          </th>
+          <th pSortableColumn="type-product" style="min-width:10rem">Type Product
+            <p-sortIcon field="type-product"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>{{ product.name_product }}</td>
+          <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                   [alt]="product.name" width="50" class="shadow-4"/></td>
+          <td>{{ product.price }}DT</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.reference}}</td>
+          <td>
+            <p-tag [value]="product.type_product" [severity]="getSeverity(product.type_product)"></p-tag>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">In total there
+          are {{ products ? products.length : 0 }} products.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+</div>

@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="content-page">
+    <p-toast></p-toast>
+    <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" style="font-size: 10px"
+                (click)="openNew()"></button>
+      </ng-template>
+
+      <ng-template pTemplate="right">
+        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+      </ng-template>
+    </p-toolbar>
+
+
+    <app-add-appointment *ngIf="addNewAppointmentModal" [modalNewAppointment]="addNewAppointmentModal" (closeModalNewAppointment)="hideDialog()"></app-add-appointment>
+
+    <app-update-appointment *ngIf="editAppointmentModal" [modalUpdateAppointment]="editAppointmentModal"
+                            [AppointmentId]="getAppointmentId"
+                    (closeModalUpdateAppointment)="hideDialog()"></app-update-appointment>
+
+    <p-table
+      #dt
+      [value]="appointments"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['reason', 'createdAt', 'comments', 'appointmentStart', 'appointmentStatus',  'firstVisit'  ]"
+      [tableStyle]="{ 'min-width': '75rem' , 'font-size':'14px','max-height': '400px', 'overflow-y': 'auto'}"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <h5 class="m-0">Manage Appointments</h5>
+          <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..."/>
+                </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="reason" style="min-width:7rem">Reason
+            <p-sortIcon field="reason"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="createdAt" style="min-width:10rem">Creation Date
+            <p-sortIcon field="createdAt"></p-sortIcon>
+          </th>
+          <th pSortableColumn="comments" style="min-width:10rem">Comments
+            <p-sortIcon field="comments"></p-sortIcon>
+          </th>
+          <th pSortableColumn="appointmentStart">Appointment Start At
+            <p-sortIcon field="appointmentStart"></p-sortIcon>
+          </th>
+          <th pSortableColumn="appointmentStatus" style="min-width:10rem">Appointment Status
+            <p-sortIcon field="appointmentStatus"></p-sortIcon>
+          </th>
+          <th pSortableColumn="firstVisit" style="min-width:10rem">First Visit
+            <p-sortIcon field="firstVisit"></p-sortIcon>
+          </th>
+          <th style="min-width:10rem">Actions
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-appointment>
+        <tr>
+          <td>{{ appointment.reason }}</td>
+          <td>{{ appointment.createdAt }}</td>
+
+          <td>{{ appointment.comments }}</td>
+          <td>{{ appointment.appointmentStart }}</td>
+          <td>
+            <p-tag [value]="appointment.status" [severity]="getSeverity(appointment.status)"></p-tag>
+          </td>
+
+          <td>{{ appointment.firstVisit}}</td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                    (click)="EditAppointment(appointment.id)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                    (click)="deleteAppointment(appointment)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">In total there
+          are {{ appointments ? appointments.length : 0 }} appointments.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+</div>

@@ -1,0 +1,57 @@
+<div class="main-body">
+  <div class="sidebar-main-active right-column-fixed">
+    <!-- Wrapper Start -->
+    <div class="wrapper">
+      <!-- Sidebar  -->
+      <div class="iq-sidebar">
+        <div id="sidebar-scrollbar">
+          <nav class="iq-sidebar-menu">
+            <ul id="iq-sidebar-toggle" class="iq-menu sidebar-toggle-button">
+              <li>
+                <a class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><i class="pi pi pi-check"></i><span>Dashboard</span></a>
+              </li>
+              <li>
+                <!--<a class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><i class="pi pi-sitemap"></i><span>User</span></a>-->
+                <a href="#user" class=" collapsed"  data-toggle="collapse" aria-expanded="false"><i class="pi pi-sitemap"></i><span>User Service</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                <ul id="user" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                  <li><a [routerLink]="['/user/profile/'+username]"><i class="pi  pi-user-edit" ></i>Edit Account</a></li>
+                  <li><a><i class="pi  pi-folder-open"></i>View Accounts</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#stock" class=" collapsed"  data-toggle="collapse" aria-expanded="false"><i class="pi pi-microsoft "></i><span>Stock Service</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                <ul id="stock" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                  <li><a [routerLink]="['/admin/stock']"><i class="pi pi-align-justify"></i>Stock List</a></li>
+                  <li><a [routerLink]="['/admin/product']"><i class="pi pi-box"></i>Product List</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#elements" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><i class="pi pi-server"></i><span>Analysis Service</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                <ul id="elements" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                  <li><a [routerLink]="['/admin/sample']"><i class="pi pi-download"></i>Sample List</a></li>
+                  <li><a [routerLink]="['/admin/test']"><i class="pi pi-heart-fill"></i>Test List</a></li>
+                </ul>
+              </li>
+              <li>
+                <a   [routerLink]="['/admin/commande']" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><i class="pi pi-folder-open"></i><span>Commande service</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+              </li>
+              <li>
+                <a   [routerLink]="['/admin/appointment']" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><i class="pi pi-folder-open"></i><span>Appointment service</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+              </li>
+              <li>
+                <a href="#training" class="iq-waves-effect collapsed"  data-toggle="collapse" aria-expanded="false"><i class="pi pi-folder-open"></i><span>Training service</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+                <ul id="training" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+                  <li><a ><i class="pi pi-qrcode"></i>Trainig</a></li>
+                  <li><a><i class="pi pi-link"></i>Subjects</a></li>
+                </ul>
+              </li>
+
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

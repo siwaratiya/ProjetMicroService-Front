@@ -1,0 +1,43 @@
+<div class="modal modal-product-area" [class]="modalUpdateAppointment ? 'open' : ''">
+  <p-dialog [(visible)]="modalUpdateAppointment" [style]="{ width: '450px' }" header="Update Appointment" [modal]="true"
+            styleClass="p-fluid">
+    <form id="msform" [formGroup]="appointmentForm" (ngSubmit)="updateAppointment()">
+      <div class="field">
+        <label for="reason">Reason</label>
+        <input type="text"  id="reason" class="form-control" formControlName="reason"  required autofocus/>
+      </div>
+      <div class="field">
+        <label for="comments">Comments</label>
+        <textarea id="comments" required rows="3" formControlName="comments" class="form-control"
+                  cols="20"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="appointmentStart">Appointment Start</label>
+
+        <input type="datetime-local" [(ngModel)]="changed"  (change)="SendDataonChange($event)" id="appointmentStart" formControlName="appointmentStart" required autofocus/>
+      </div>
+
+
+      <div class="field">
+        <div class="field">
+          <label for="appointmentStatus">Appointment Status</label>
+          <select id="appointmentStatus" formControlName="appointmentStatus">
+            <option *ngFor="let option of appointmentStatus " [value]="option.value">{{ option.label }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="firstVisit">First Visit</label>
+        <input type="text"  id="firstVisit" formControlName="firstVisit" required autofocus/>
+      </div>
+
+      <div class="button-container">
+        <button pButton label="Cancel" icon="pi pi-times" class="p-button-text" (click)="cancel()" ></button>
+        <button pButton label="Save" icon="pi pi-check" class="p-button-text"></button>
+      </div>
+    </form>
+
+  </p-dialog>
+</div>

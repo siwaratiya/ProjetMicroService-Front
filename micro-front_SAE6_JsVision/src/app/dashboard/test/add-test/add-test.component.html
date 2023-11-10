@@ -1,0 +1,26 @@
+<div class="modal modal-product-area" [class]="modalNewProduct ? 'open' : ''">
+  <p-dialog [(visible)]="modalNewProduct" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
+            styleClass="p-fluid">
+    <form id="msform" [formGroup]="productForm" (ngSubmit)="addNewProduct()">
+      <div class="field">
+        <label for="nameTest">nameTest</label>
+        <input type="text"  id="nameTest" formControlName="nameTest" required autofocus/>
+      </div>
+
+      <div class="field">
+        <label for="price">price</label>
+        <input type="text"  id="price" formControlName="price" required autofocus/>
+
+      </div>
+
+
+
+
+      <div class="button-container">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="cancel()" ></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"></button>
+      </div>
+    </form>
+
+  </p-dialog>
+</div>

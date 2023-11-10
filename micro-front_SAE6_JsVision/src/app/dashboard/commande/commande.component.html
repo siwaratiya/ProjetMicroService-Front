@@ -1,0 +1,94 @@
+<div class="card">
+  <div class="content-page">
+    <p-toast></p-toast>
+    <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" style="font-size: 10px"
+                (click)="openNew()"></button>
+      </ng-template>
+
+      <ng-template pTemplate="right">
+        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+      </ng-template>
+    </p-toolbar>
+
+
+    <app-add-commande *ngIf="addNewCommandeModal" [modalNewCommande]="addNewCommandeModal" (closeModalNewCommande)="hideDialog()"></app-add-commande>
+    <app-edit-commande *ngIf="editCommandeModal" [modalEditCommande]="editCommandeModal"
+                      [CommandId]="getCommandeId"
+                      (closeModalEditCommande)="hideDialog()"></app-edit-commande>
+
+
+    <p-table
+      #dt
+      [value]="Commandes"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+      [tableStyle]="{ 'min-width': '75rem' , 'font-size':'14px','max-height': '400px', 'overflow-y': 'auto'}"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <h5 class="m-0">Order</h5>
+          <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..."/>
+                </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="date" style="min-width:15rem">date
+            <p-sortIcon field="date"></p-sortIcon>
+          </th>
+          <th pSortableColumn="nbPoduct" style="min-width:10rem">Number of products
+            <p-sortIcon field="nbPoduct"></p-sortIcon>
+          </th>
+          <th pSortableColumn="notice">Notice
+            <p-sortIcon field="notice"></p-sortIcon>
+          </th>
+          <th pSortableColumn="quantity_product" style="min-width:10rem">Quantity product
+            <p-sortIcon field="quantity_product"></p-sortIcon>
+          </th>
+          <th pSortableColumn="total_price" style="min-width:10rem">Total price
+            <p-sortIcon field="total_price"></p-sortIcon>
+          </th>
+          <th style="min-width:10rem">Actions
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-commande>
+        <tr>
+
+          <td>{{ commande.date}}</td>
+
+          <td>{{ commande.nbPoduct }}</td>
+          <td>{{ commande.notice }}</td>
+          <td>{{ commande.quantity_product}}</td>
+          <td>{{ commande.total_price}}</td>
+
+
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                    (click)="EditCommande(commande.id)"></button>
+
+
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                    (click)="deleteCommande(commande)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">In total there
+          are {{ Commandes ? Commandes.length : 0 }} Commandes.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+</div>
+

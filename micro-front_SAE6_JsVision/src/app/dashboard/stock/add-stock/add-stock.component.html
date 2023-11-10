@@ -1,0 +1,36 @@
+<div class="modal modal-product-area" [class]="modalNewStock ? 'open' : ''">
+  <p-dialog [(visible)]="modalNewStock" [style]="{ width: '450px' }" header="Product Details" [modal]="true"
+            styleClass="p-fluid">
+    <form id="msform" [formGroup]="stockForm" (ngSubmit)="addNewStock()">
+      <div class="field">
+        <label for="type_product">Inventory Status</label>
+        <select id="type_product" formControlName="type_product">
+          <option *ngFor="let option of type_product" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="unit">Unit</label>
+        <input type="text" id="unit" formControlName="unit" required autofocus/>
+      </div>
+      <div class="field">
+        <label for="storage">Storage</label>
+        <input type="number" id="storage" formControlName="storage" required autofocus/>
+      </div>
+      <div class="field">
+        <label for="location">Location</label>
+        <input type="text" id="location" required rows="3" formControlName="location" />
+      </div>
+      <div class="field">
+        <label for="state">Stock Status</label>
+        <select id="state" formControlName="state">
+          <option *ngFor="let option of state" [value]="option.value">{{ option.label }}</option>
+        </select>
+      </div>
+      <div class="button-container">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="cancel()"></button>
+        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"></button>
+      </div>
+    </form>
+
+  </p-dialog>
+</div>

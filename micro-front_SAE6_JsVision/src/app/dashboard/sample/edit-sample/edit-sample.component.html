@@ -1,0 +1,21 @@
+<div class="modal modal-product-area" [class]="modalEditProduct ? 'open' : ''">
+  <p-dialog [(visible)]="modalEditProduct" [style]="{ width: '450px' }" header="Edit Product" [modal]="true"
+            styleClass="p-fluid">
+    <form id="msform" [formGroup]="productForm" (ngSubmit)="editProduct()">
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="text"  id="date" class="form-control" formControlName="date"  required autofocus/>
+      </div>
+      <div class="field">
+        <label for="numSample">numSample</label>
+        <input type="text"  id="numSample" formControlName="numSample" class="form-control" required autofocus/>
+      </div>
+
+      <div class="button-container">
+        <button pButton label="Cancel" icon="pi pi-times" class="p-button-text" (click)="cancel()" ></button>
+        <button pButton label="Save" icon="pi pi-check" class="p-button-text"></button>
+      </div>
+    </form>
+
+  </p-dialog>
+</div>

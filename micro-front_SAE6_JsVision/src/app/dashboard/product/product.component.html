@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="content-page">
+    <p-toast></p-toast>
+    <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" style="font-size: 10px"
+                (click)="openNew()"></button>
+      </ng-template>
+
+      <ng-template pTemplate="right">
+        <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help"></button>
+      </ng-template>
+    </p-toolbar>
+
+
+    <app-add-product *ngIf="addNewProductModal" [modalNewProduct]="addNewProductModal" (closeModalNewProduct)="hideDialog()"></app-add-product>
+
+    <app-edit-product *ngIf="editProductModal" [modalEditProduct]="editProductModal"
+                     [ProductId]="getProductId"
+                     (closeModalNewProduct)="hideDialog()"></app-edit-product>
+
+    <p-table
+      #dt
+      [value]="products"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+      [tableStyle]="{ 'min-width': '75rem' , 'font-size':'14px','max-height': '400px', 'overflow-y': 'auto'}"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <h5 class="m-0">Manage Products</h5>
+          <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..."/>
+                </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="name_product" style="min-width:15rem">Name
+            <p-sortIcon field="name_product"></p-sortIcon>
+          </th>
+          <th>Image</th>
+          <th pSortableColumn="quantity">Quantity
+            <p-sortIcon field="quantity"></p-sortIcon>
+          </th>
+          <th pSortableColumn="price">Price
+            <p-sortIcon field="price"></p-sortIcon>
+          </th>
+          <th pSortableColumn="description" style="min-width:10rem">Description
+            <p-sortIcon field="description"></p-sortIcon>
+          </th>
+          <th pSortableColumn="refrence">Reference
+            <p-sortIcon field="refrence"></p-sortIcon>
+          </th>
+          <th pSortableColumn="type-product" style="min-width:10rem">Type Product
+            <p-sortIcon field="type-product"></p-sortIcon>
+          </th>
+          <th style="min-width:10rem">Actions
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-product>
+        <tr>
+          <td>{{ product.name_product }}</td>
+          <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
+                   [alt]="product.name" width="50" class="shadow-4"/></td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.price }}DT</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.reference}}</td>
+          <td>
+            <p-tag [value]="product.type_product" [severity]="getSeverity(product.type_product)"></p-tag>
+          </td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                    (click)="EditProduct(product.id)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                    (click)="deleteProduct(product)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">In total there
+          are {{ products ? products.length : 0 }} products.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+</div>

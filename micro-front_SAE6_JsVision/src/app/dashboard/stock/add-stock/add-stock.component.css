@@ -1,0 +1,75 @@
+.modal.open {
+  display: block;
+}
+
+/* Style the field container */
+.field {
+  margin-bottom: 20px;
+}
+
+/* Style the label */
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Style the input and textarea */
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #007bff; /* Blue border color */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 16px;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Blue shadow */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+/* Hover effect */
+input[type="text"]:hover,
+textarea:hover {
+  border-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Focus effect */
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #0056b3; /* Darker blue on focus */
+  box-shadow: 0 0 10px rgba(0, 0, 255, 0.8); /* Bigger shadow on focus */
+}
+
+
+/* Style the select element */
+select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #007bff; /* Blue border color */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 16px;
+  background-color: #fff; /* Background color */
+  color: #333; /* Text color */
+  transition: border-color 0.3s;
+}
+
+/* Increase the height of the options dropdown */
+select:hover,
+select:focus {
+  height: auto; /* Make the dropdown expand to fit content */
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  background-color: transparent;
+  margin-top: 20px;
+}
+
+/* Style for the buttons */
+.p-button-text.p-button-lg {
+  font-size: 18px; /* Increase font size */
+  padding: 10px 20px; /* Increase padding to make the buttons larger */
+  min-width: 150px; /* Adjust the minimum width as needed */
+}

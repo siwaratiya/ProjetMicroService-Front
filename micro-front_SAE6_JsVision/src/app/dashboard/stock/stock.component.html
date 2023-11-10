@@ -1,0 +1,108 @@
+<div class="card">
+  <div class="content-page">
+    <p-toast></p-toast>
+    <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+        <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-button-outlined mr-2" style="font-size: 10px"
+                (click)="openNew()"></button>
+      </ng-template>
+
+      <ng-template pTemplate="right">
+        <button pButton pRipple label="Details" icon="pi pi-upload" class="p-button-help p-button-outlined"></button>
+      </ng-template>
+    </p-toolbar>
+
+
+    <app-add-stock *ngIf="addNewStockModal" [modalNewStock]="addNewStockModal" (closeModalNewStock)="hideDialog()"></app-add-stock>
+    <app-edit-stock *ngIf="editStockModal" [modalEditStock]="editStockModal"
+                      [StockId]="getStockId"
+                      (closeModalEditStock)="hideDialog()"></app-edit-stock>
+
+    <p-table
+      #dt
+      [value]="stockList"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+      [tableStyle]="{ 'min-width': '75rem' , 'font-size':'14px','max-height': '400px', 'overflow-y': 'auto'}"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <h5 class="m-0">Manage Stock List</h5>
+          <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..."/>
+                </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="unit" style="min-width:15rem">Unit
+            <p-sortIcon field="unit"></p-sortIcon>
+          </th>
+          <th pSortableColumn="storage">Storage
+            <p-sortIcon field="storage"></p-sortIcon>
+          </th>
+          <th pSortableColumn="free_storage">Free Storage
+            <p-sortIcon field="free_storage"></p-sortIcon>
+          </th>
+          <th pSortableColumn="used_storage" style="min-width:10rem">Used Storage
+            <p-sortIcon field="used_storage"></p-sortIcon>
+          </th>
+          <th pSortableColumn="type_product" style="min-width:10rem">Type Product
+            <p-sortIcon field="type_product"></p-sortIcon>
+          </th>
+          <th pSortableColumn="state" style="min-width:10rem">State
+            <p-sortIcon field="state"></p-sortIcon>
+          </th>
+          <th pSortableColumn="location">Location
+            <p-sortIcon field="location"></p-sortIcon>
+          </th>
+          <th pSortableColumn="nbProduct">Product Number
+            <p-sortIcon field="nbProduct"></p-sortIcon>
+          </th>
+          <th pSortableColumn="createdAt">Created At
+            <p-sortIcon field="createdAt"></p-sortIcon>
+          </th>
+          <th style="min-width:10rem">Actions
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-stock>
+        <tr>
+          <td>{{ stock.unit }}</td>
+          <td>{{ stock.storage }}DT</td>
+          <td>{{ stock.free_storage }}</td>
+          <td>{{ stock.used_storage}}</td>
+          <td>
+            <p-tag [value]="stock.type_product" [severity]="getSeverity(stock.type_product)"></p-tag>
+          </td>
+          <td>
+            <p-tag [value]="stock.state" [severity]="getSeverity(stock.state)"></p-tag>
+          </td>
+          <td>{{ stock.location}}</td>
+          <td>{{ stock.nbProduct}}</td>
+          <td>{{ stock.LocalDate}}</td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-outlined"
+                    (click)="EditStock(stock.id)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-outlined"
+                    (click)="deleteStock(stock)"></button>
+            <button pButton pRipple icon="pi pi-clone" class="p-button-rounded p-button-warning p-button-outlined"
+                    [routerLink]="['details/'+stock.id]"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">In total there
+          are {{ stockList ? stockList.length : 0 }} products.
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+</div>
